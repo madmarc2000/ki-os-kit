@@ -44,8 +44,10 @@ CLAUDE.md ist **Identität + Router**: Prozessdetails leben in `Skills/`, Regeln
 - API-Keys: niemals im Chat, niemals im Browser-Code — immer server-seitig (siehe Stufe 2).
 
 ### Obsidian
-- `[[Wikilinks]]` für interne Verknüpfungen.
-- YAML-Frontmatter: `tags`, `status` (aktiv/abgeschlossen/pausiert), `date`.
+- **AI-first Notizen** (damit das Gedächtnis gut abrufbar bleibt):
+  - Frontmatter immer: `type:` (projekt/tagebuch/wissen/idee/person/entscheidung), `date:`, `tags:`, `ai-first: true` — bei Projekten zusätzlich `status:` (aktiv/abgeschlossen/pausiert).
+  - `[[Wikilinks]]` für **jede** genannte Person, jedes Projekt, jede Idee, jede Entscheidung — auch wenn die Zieldatei noch nicht existiert.
+  - Externe Fakten mit Recency-Marker: `Behauptung (Stand YYYY-MM, quelle.de)`.
 - Neue Notiz ohne Platz → `Aufgaben/` oder `Ideen/`.
 - Dateien löschen/überschreiben → erst nachfragen.
 - Backup vor Änderung: Kopie nach `bak/` im Vault-Root, Schema `<Ordner>__<datei>.BAK-YYYY-MM-DD-HHMM.md`. Bei jedem Lauf: `bak/`-Dateien älter als 7 Tage löschen.

@@ -1,7 +1,9 @@
 ---
-tags: [projekt]
-status: aktiv
+type: projekt
 date: {{date}}
+tags: [projekt]
+ai-first: true
+status: aktiv
 ---
 
 # {{title}}
