@@ -9,10 +9,14 @@
 [obsidian.md](https://obsidian.md) — kostenlos, lokal. Diesen Ordner (`stufe-1-vault/`)
 als Vault öffnen: *Vault öffnen → Ordner wählen*.
 
-## 2. Sync wählen (eine Option)
-- **iCloud / OneDrive / Dropbox** — Vault-Ordner ins Cloud-Verzeichnis legen. Gratis, einfach.
-- **Obsidian Sync** — [obsidian.md/sync](https://obsidian.md/sync), ~4–8 €/Monat, verschlüsselt.
-- **Git** — für Technik-affine. Versionierung inklusive.
+## 2. Sync wählen
+Hält den Vault auf mehreren Geräten gleich. Eine Option genügt:
+
+- **iCloud / Dropbox / OneDrive / Google Drive** — Vault-Ordner ins Cloud-Verzeichnis legen. Gratis, null Konfiguration; iCloud ist auf Apple-Geräten der einfachste Weg. Nachteil: keine echte Versionshistorie, gelegentlich Sync-Konflikte (v. a. am `.obsidian`-Ordner).
+- **[Obsidian Sync](https://obsidian.md/sync)** — der hauseigene Dienst, ab ~$4/Monat (jährlich, [Preise](https://obsidian.md/pricing)). Ende-zu-Ende-verschlüsselt, Versionshistorie, plattformübergreifend, am reibungsärmsten.
+- **Git** (Obsidian-Git-Plugin) — gratis, volle Versionshistorie, von überall klonbar. Auf Handy/Tablet aber fummelig.
+
+Faustregel: nur Apple-Geräte → iCloud · plattformübergreifend & bequem → Obsidian Sync · technik-affin & Versionshistorie wichtig → Git.
 
 ## 3. Platzhalter ersetzen
 Such-und-Ersetze in `CLAUDE.md` (und überall sonst) folgende Werte:
