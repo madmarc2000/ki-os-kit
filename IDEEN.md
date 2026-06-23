@@ -61,6 +61,50 @@ referenzierten Entitäten. Kein Vault-weites Rewrite.
 
 ---
 
+## Stufe 2 — Connector-Strategie (portierbar statt universell)
+
+**Problem:** Stufe 1 ist Text → KI-neutral. Ein Agent ist immer an ein Tool gebunden — es
+gibt keinen anbieter-losen Agenten. „Universell mit jeder KI" bricht genau hier.
+
+**Auflösung — zwei Schichten trennen:**
+- **Protokoll** (portierbar, reiner Text): Task-Format (`#aufgabe`/`#erledigt`), Routing
+  („wo landet was"), Secrets-Konzept (KI ruft ein Skript, sieht den Key nie). Jede KI mit
+  Dateizugriff liest das.
+- **Connector** (anbieter-spezifisch, kann nicht neutral sein): wie der Agent startet/pollt,
+  und wie die Router-Datei heißt (`CLAUDE.md` / `AGENTS.md` / `GEMINI.md`).
+
+**Designentscheidung: portierbar, nicht universell.** Kein Multi-Plattform-Build-System
+warten (Weglassen vor Hinzufügen) — das Protokoll text-rein halten, *ein* Connector-Beispiel
+mitliefern. Umstellen auf einen anderen Agenten ist dann trivial.
+
+**Connector = CLI ist der gemeinsame Nenner.** Jeder ernsthafte Anbieter hat eine CLI
+(Claude Code, Codex CLI, Gemini CLI, OpenCode); die reifen Repos setzen alle darauf. Nur die
+CLI gibt Dateizugriff + Skript-Aufrufe (Secrets-Pattern) + Automatisierbarkeit. Unterschied
+zwischen Anbietern = nur Router-Dateiname + Startbefehl.
+
+**„Zu technisch?" — Setup ≠ Alltag.** Das Terminal ist nur die Einrichtungsschicht. Nach
+Installation + Login fasst der Nutzer es nie wieder an (er arbeitet im Chat/Obsidian, Agent
+läuft im Hintergrund). Stufe 2 *darf* technischer sein — genau dafür ist gestuft (Stufe 1 =
+jeder; Stufe 2 = wer einen Agenten will).
+
+**CLI-Installation entschärfen (Reihenfolge der Hebel):**
+1. One-Line-Installer der CLI (`curl … | bash` / `irm … | iex`) statt manueller Schritte.
+2. **Bootstrap-Skript** im Kit (der eigentliche Hebel): prüft/installiert CLI, startet Login,
+   richtet Vault ein. Nutzer pastet *einen* Befehl + folgt *einem* Browser-Login.
+3. Package Manager (brew/winget/scoop), wo vorhanden — schwächster Hebel.
+   Untergrenze bleibt: Terminal öffnen, Befehl einfügen, einmal Browser-Login.
+
+**Zwei Connector-Wege in Stufe 2 anbieten:**
+- **„Einfach": Desktop-App** (z. B. Claude Desktop/Cowork) — Doppelklick, kein Terminal. Für
+  die meisten. Preis: ein Anbieter, nicht universell.
+- **„Universell": CLI + Bootstrap-Skript** — jeder Anbieter, ein Befehl + Login. Für alle, die
+  Portabilität wollen.
+
+**Bauplan Stufe 2:** neutrales Protokoll (Task-Format + Routing + Secrets als Markdown-Regeln)
++ Bootstrap-Skript als Kern + die zwei Connector-Wege. Kein Build-System.
+
+---
+
 ## Offen / zu prüfen
 
 - `type`-Feld nur in gemischten Ordnern sinnvoll (in `Projekte/` ist es Duplikat zum Ordner).
