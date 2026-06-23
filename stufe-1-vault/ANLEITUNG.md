@@ -1,5 +1,10 @@
 # Anleitung — Stufe 1 einrichten
 
+> **Schneller Weg:** Statt der Schritte 3 unten kannst du `INIT.md` als Kontext an deine KI
+> geben und „führe mich durch das Setup" sagen — sie fragt die Grundlagen ab und legt
+> Struktur, Kontext-Dateien und die fertige `CLAUDE.md` selbst an. Diese Anleitung beschreibt
+> den **manuellen** Weg (ohne KI-Zugang).
+
 ## 1. Obsidian installieren
 [obsidian.md](https://obsidian.md) — kostenlos, lokal. Diesen Ordner (`stufe-1-vault/`)
 als Vault öffnen: *Vault öffnen → Ordner wählen*.
