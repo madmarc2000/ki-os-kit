@@ -30,6 +30,20 @@ Stufe 2 und 3 sind eigenständige Ordner mit eigener Anleitung — erst dazunehm
 
 Weglassen vor Hinzufügen. Die einfachste funktionierende Lösung gewinnt.
 
+## Welche KI?
+
+Der Wissens-Layer ist **KI-neutral** — Vault-Struktur, Regeln, Templates und `INIT.md` sind
+reine Markdown-Dateien. Jede KI, die Text liest (Claude, ChatGPT, Gemini, lokale Modelle),
+kann damit arbeiten: Inhalt in den Chat kopieren und „arbeite nach diesen Regeln" sagen.
+
+`CLAUDE.md` ist nur ein **Beispiel-Dateiname** — die Konvention, die Claude Code automatisch
+lädt. Bei anderen Agenten-Tools heißt die Router-Datei anders (`AGENTS.md` für Codex/OpenCode,
+`GEMINI.md` für Gemini CLI). Inhaltlich bleibt sie gleich; nur den Namen pro Tool anpassen.
+
+> Damit die KI **autonom** im Vault liest und schreibt (Daily Notes, Notizpflege), braucht sie
+> Dateizugriff — also ein Agenten-Tool (Claude Code, Cowork oder das CLI des jeweiligen
+> Anbieters), nicht nur einen reinen Web-Chat.
+
 ## Lizenz
 
 MIT — frei nutzen, anpassen, weitergeben.

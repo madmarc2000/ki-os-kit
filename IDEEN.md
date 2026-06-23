@@ -66,3 +66,7 @@ referenzierten Entitäten. Kein Vault-weites Rewrite.
 - `type`-Feld nur in gemischten Ordnern sinnvoll (in `Projekte/` ist es Duplikat zum Ordner).
 - `ai-first: true` im Kit nochmal prüfen: trägt nur Information, wenn es Notizen gibt, bei
   denen es `false` wäre (z. B. importierte Alt-Vaults). Sonst raus.
+- **KI-neutraler Build-/Adapter-Schritt:** Ein Script, das die neutrale Router-Quelle in
+  `CLAUDE.md` (Claude Code), `AGENTS.md` (Codex/OpenCode) und `GEMINI.md` (Gemini CLI)
+  spiegelt — eine Quelle, mehrere Tool-Outputs. Macht das Kit echt anbieter-unabhängig statt
+  nur „kopier den Inhalt rüber". Die reifen Repos (eugeniughelbur) machen genau das.
