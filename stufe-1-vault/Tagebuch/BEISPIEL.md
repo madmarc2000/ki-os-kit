@@ -2,7 +2,6 @@
 type: tagebuch
 date: 2026-01-15
 tags: [beispiel, tagebuch]
-ai-first: true
 ---
 
 # 2026-01-15

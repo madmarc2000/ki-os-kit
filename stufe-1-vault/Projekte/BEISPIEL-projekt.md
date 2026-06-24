@@ -2,7 +2,6 @@
 type: projekt
 date: 2026-01-15
 tags: [beispiel, smarthome]
-ai-first: true
 status: aktiv
 ---
 

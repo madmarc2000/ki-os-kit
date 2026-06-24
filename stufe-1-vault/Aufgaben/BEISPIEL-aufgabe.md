@@ -2,7 +2,6 @@
 type: aufgabe
 date: 2026-01-15
 tags: [beispiel, aufgabe]
-ai-first: true
 status: offen
 ---
 

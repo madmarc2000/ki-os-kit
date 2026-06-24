@@ -18,7 +18,7 @@ Das Kit ist in drei Stufen aufgebaut. **Du nimmst nur, was du brauchst.**
 
 1. Ordner `stufe-1-vault/` in Obsidian als Vault öffnen.
 2. `00-START-HIER.md` öffnen — sie sagt dir in einem Satz, was zu tun ist.
-3. **Einrichten:** Gib deiner KI die Datei `_setup/INIT.md` und sag „führe mich durch das Setup". Sie fragt die Grundlagen ab und richtet Struktur, Kontext-Dateien und `CLAUDE.md` selbst ein.
+3. **Einrichten:** Gib deiner KI die Datei `_setup/INIT.md` und sag „führe mich durch das Setup". Sie fragt die Grundlagen ab und richtet Struktur, Kontext-Dateien und `CLAUDE.md` selbst ein. Danach einmalig in Obsidian einstellen: `_setup/OBSIDIAN-SETUP.md` (Anhänge, Vorlagen, Tagesnotizen — dort steht auch, wofür jeder Ordner da ist).
 4. Loslegen: schau dir die `BEISPIEL-`Notizen in den Ordnern an, dann lösch sie und leg eigene an.
 
 <details>

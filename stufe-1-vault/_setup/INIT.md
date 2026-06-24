@@ -23,7 +23,7 @@ Obsidian-Basis). Wird diese Datei als Kontext geladen und der Nutzer sagt sinnge
 ## Nach dem Interview — das legst du an
 
 Lege (falls noch nicht vorhanden) die Ordnerstruktur an:
-`Anhänge/ Archiv/ Aufgaben/ Berichte/ Berichte/sclose/ Ideen/ Projekte/ Tagebuch/ Trash/ templates/ Wissensdatenbank/ Skills/ bak/`
+`Anhänge/ Archiv/ Aufgaben/ Berichte/ Berichte/sclose/ Ideen/ Projekte/ Tagebuch/ templates/ Wissensdatenbank/ Skills/`
 
 Erzeuge oder aktualisiere aus den Antworten:
 - `Wissensdatenbank/Über mich.md` — aus Block 1 + 2.

@@ -22,7 +22,6 @@ Ausführliches Profil: [[Wissensdatenbank/Über mich]]
 - **Ideen/**: Lose Gedanken, Konzepte ohne konkretes Projekt. Tag: `#idee`
 - **Projekte/**: Aktive Projekte mit Ziel und Enddatum. Eine .md pro Projekt.
 - **Tagebuch/**: Tägliche Einträge. Format: `YYYY-MM-DD.md`. Tags: `#frage` / `#erledigt` / `#idee`
-- **Trash/**: Verworfene Notizen. Soft-Delete-Puffer — NICHT für Erledigtes (das → `Archiv/`). Älter als 30 Tage darf endgültig gelöscht werden.
 - **templates/**: Vorlagen für Notizen, Projekte, Daily Notes.
 - **Wissensdatenbank/**: Referenzwissen, Kontext-Dateien, Dokumentation.
 
@@ -44,13 +43,12 @@ CLAUDE.md ist **Identität + Router**: Prozessdetails leben in `Skills/`.
 
 ### Obsidian
 - **AI-first Notizen** (damit das Gedächtnis gut abrufbar bleibt):
-  - Frontmatter immer: `type:` (projekt/tagebuch/wissen/idee/person/entscheidung), `date:`, `tags:`, `ai-first: true` — bei Projekten zusätzlich `status:` (aktiv/abgeschlossen/pausiert).
+  - Frontmatter immer: `type:` (projekt/tagebuch/aufgabe/wissen/idee/person/entscheidung), `date:`, `tags:` — bei Projekten und Aufgaben zusätzlich `status:`.
   - `[[Wikilinks]]` für **jede** genannte Person, jedes Projekt, jede Idee, jede Entscheidung — auch wenn die Zieldatei noch nicht existiert.
   - Externe Fakten mit Recency-Marker: `Behauptung (Stand YYYY-MM, quelle.de)`.
 - Neue Notiz ohne Platz → `Aufgaben/` oder `Ideen/`.
 - Dateien löschen/überschreiben → erst nachfragen.
-- Backup vor Änderung: Kopie nach `bak/` im Vault-Root, Schema `<Ordner>__<datei>.BAK-YYYY-MM-DD-HHMM.md`. Bei jedem Lauf: `bak/`-Dateien älter als 7 Tage löschen.
-- Aufgabe verwerfen → nach `Trash/`. Erledigte Aufgaben → `Archiv/`, nicht Trash.
+- Aufgabe verwerfen → löschen (Obsidian sichert sie in `.trash`). Erledigte Aufgaben → `Archiv/`.
 
 ### Wenn ich sage „merk dir das"
 → relevante Datei in `Wissensdatenbank/` aktualisieren und die Änderung benennen.

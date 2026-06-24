@@ -1,8 +1,7 @@
 ---
-type: referenz
+type: wissen
 date: 2026-01-15
 tags: [beispiel]
-ai-first: true
 ---
 
 # Beispiel: Sync-Optionen
