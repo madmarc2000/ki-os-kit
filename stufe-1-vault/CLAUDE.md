@@ -25,12 +25,11 @@ Ausführliches Profil: [[Wissensdatenbank/Über mich]]
 - **templates/**: Vorlagen für Notizen, Projekte, Daily Notes.
 - **Wissensdatenbank/**: Referenzwissen, Kontext-Dateien, Dokumentation.
 
-## System-Bausteine (modular)
+## System
 
-- **Skills/** — abrufbare Prozesse, eine .md pro Skill. Bei neuer Aufgabe passenden Skill laden; fehlt einer, neu anlegen nach gleichem Schema.
 - Lernschleife: Sektion „Wissen & Erkenntnisse" + sclose.
 
-CLAUDE.md ist **Identität + Router**: Prozessdetails leben in `Skills/`.
+CLAUDE.md ist **Identität + Arbeitsregeln** der KI.
 
 ---
 

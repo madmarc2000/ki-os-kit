@@ -314,12 +314,11 @@ Ausführliches Profil: [[Wissensdatenbank/Über mich]]
 - **templates/**: Vorlagen für Notizen, Projekte, Daily Notes.
 - **Wissensdatenbank/**: Referenzwissen, Kontext-Dateien, Dokumentation.
 
-## System-Bausteine (modular)
+## System
 
-- **Skills/** — abrufbare Prozesse, eine .md pro Skill. Bei neuer Aufgabe passenden Skill laden; fehlt einer, neu anlegen nach gleichem Schema.
 - Lernschleife: Sektion „Wissen & Erkenntnisse" + sclose.
 
-CLAUDE.md ist **Identität + Router**: Prozessdetails leben in `Skills/`.
+CLAUDE.md ist **Identität + Arbeitsregeln** der KI.
 
 ---
 
@@ -569,29 +568,6 @@ tags: [tagebuch]
 **Stand:** [Ein Satz]
 </script>
 
-<script type="text/template" id="tpl-skill">
-# Skill: Beispiel
-
-**Ampel:** 🟢 grün
-
-## Zweck
-Was macht dieser Skill, wann wird er gezogen?
-
-## Auslöser
-Welche Formulierung / Situation aktiviert ihn?
-
-## Ablauf
-1. Schritt
-2. Schritt
-3. Ergebnis
-
-## Beispiel
-(konkretes Beispiel des erwarteten Outputs)
-
----
-> Neuen Skill nach diesem Schema anlegen: eine `.md` pro Skill, immer mit Ampel.
-</script>
-
 <script>
 "use strict";
 
@@ -734,7 +710,6 @@ function buildFiles(d){
   files.push({name:"templates/projekt.md", text:tpl("tpl-projekt").replace("{{DATE}}","{{date}}").replace("{{TITEL}}","{{title}}")});
   files.push({name:"templates/tagebuch.md", text:tpl("tpl-tagebuch")});
   files.push({name:"templates/sclose.md", text:tpl("tpl-sclose")});
-  files.push({name:"Skills/_beispiel-skill.md", text:tpl("tpl-skill")});
 
   // project files per theme
   d.themen.forEach(t => {
@@ -786,7 +761,7 @@ function renderTree(){
   Über mich.md  ·  Schreibstil.md  ·  WISSENSBASIS.md
  <span class="dir">Projekte/</span>
 ${proj}
- <span class="dir">templates/</span>  ·  <span class="dir">Skills/</span>
+ <span class="dir">templates/</span>
  ${dirs.replace(/\n/g,"\n ")}`;
   $("#tree").innerHTML = tree;
   const live = !!(d.name && d.name!=="Du");
