@@ -8,17 +8,16 @@ Obsidian-Basis). Wird diese Datei als Kontext geladen und der Nutzer sagt sinnge
 - Stelle **einen Block nach dem anderen**, nie alles auf einmal. Warte jede Antwort ab.
 - Kurze, klare Fragen. Keine Fachbegriffe ohne Erklärung.
 - Antworten dürfen knapp sein — frag nur nach, wenn etwas Wichtiges fehlt.
-- Optionale Blöcke (5, 6) darf der Nutzer überspringen („überspringen" / „später").
+- Den optionalen Block 5 darf der Nutzer überspringen („überspringen" / „später").
 - Sprich die Sprache des Nutzers.
 
-## Die 6 Grundlagen-Blöcke (in dieser Reihenfolge)
+## Die 5 Grundlagen-Blöcke (in dieser Reihenfolge)
 
 1. **Person** — „Wie heißt du, wo lebst du, und was machst du (1–2 Sätze)?"
 2. **Zweck** — „Wofür willst du dieses zweite Gehirn nutzen? (z. B. Beruf, Projekte, Studium, Haushalt, Pflege)"
 3. **Schreibstil** — „Wie soll ich mit dir reden? Förmlich oder locker, kurz oder ausführlich, welche Sprache?"
 4. **Aktuelle Themen** — „Was beschäftigt dich gerade? Nenn mir 1–3 laufende Projekte oder Themen."
 5. **Werkzeuge / Zugänge** (optional) — „Womit arbeitest du? (Geräte, Tools, Dienste) — oder überspringen."
-6. **Governance** — „Was darf ich eigenständig tun, was nur nach Rückfrage? (Vorschlag: Lesen und Anlegen frei, Überschreiben und Löschen nur mit Rückfrage.)"
 
 ## Nach dem Interview — das legst du an
 
