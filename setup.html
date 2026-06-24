@@ -270,10 +270,9 @@
       <h3>Fertig — dein Vault ist gebaut.</h3>
       <p id="donesum">Die ZIP wird heruntergeladen.</p>
       <ol class="steps">
-        <li>ZIP <b>entpacken</b> (Doppelklick).</li>
-        <li>In <b>Obsidian</b>: „Open folder as vault" → den entpackten Ordner wählen.</li>
-        <li>Die Datei <code>00-WILLKOMMEN.md</code> öffnen — dort stehen die letzten Obsidian-Einstellungen.</li>
-        <li>Loslegen: im Chat mit deiner KI arbeiten.</li>
+        <li>ZIP <b>entpacken</b> — egal wohin (Downloads, Dokumente …), der Ort ist frei wählbar.</li>
+        <li>In <b>Obsidian</b>: "Open folder as vault" → den entpackten Ordner wählen.</li>
+        <li><b>Fertig.</b> Einstellungen sind schon konfiguriert. <code>00-WILLKOMMEN.md</code> erklärt den Rest.</li>
       </ol>
       <button class="redownload" id="again">Nochmal herunterladen</button>
     </div>
@@ -511,33 +510,31 @@ status: aktiv
 </script>
 
 <script type="text/template" id="tpl-willkommen">
-# Willkommen — dein Vault ist eingerichtet
+# Willkommen — dein Vault ist fertig
 
-Hallo {{NAME}}. Dieses Vault ist dein „zweites Gehirn". Inhalte und Profil sind schon
-nach deinen Antworten angelegt. Es fehlt nur noch **ein** Schritt: Obsidian scharf stellen.
-
-## Letzter Schritt: Obsidian einrichten
-
-Diese Einstellungen sorgen dafür, dass Anhänge, Vorlagen und Tagesnotizen am richtigen
-Ort landen. Einmal klicken, fertig.
-
-1. **Anhänge-Speicherort** — Einstellungen → Dateien & Links → „Standardspeicherort für neue
-   Anhänge" → `Anhänge`.
-2. **Anhänge aus Graph & Suche raushalten** — Dateien & Links → „Ignorierte Dateien" →
-   `Anhänge/` eintragen.
-3. **Vorlagen** — Einstellungen → Core-Plugins → „Vorlagen" aktivieren → Vorlagen-Ordner =
-   `templates`.
-4. **Tägliche Notizen** — Core-Plugins → „Tägliche Notizen" aktivieren → Ort = `Tagebuch`,
-   Datumsformat = `YYYY-MM-DD`, Vorlage = `templates/tagebuch`.
-5. *(optional)* **Dataview** — Community-Plugin, für Abfragen wie „alle offenen `#aufgabe`".
+Hallo {{NAME}}. Dieses Vault ist dein "zweites Gehirn". Inhalte, Profil **und die Obsidian-Einstellungen** sind schon fertig eingerichtet. Du kannst sofort loslegen.
 
 ## So arbeitest du ab jetzt
 
 - Gib deiner KI die Datei `CLAUDE.md` als Kontext (Claude Code lädt sie automatisch).
-- Am Tagesende: „schließ den Tag ab" → Tagesnotiz in `Tagebuch/`.
+- Am Tagesende: "schließ den Tag ab" → Tagesnotiz in `Tagebuch/`.
 - Neue Regel? Einfach im Chat sagen — sie wandert nach `CLAUDE.md`.
 
-Wenn alles steht, kannst du **diese Datei löschen**.
+Wenn alles passt, kannst du **diese Datei löschen**.
+
+---
+
+## Falls etwas nicht stimmt (Sicherheitsnetz)
+
+Die Einstellungen liegen im versteckten Ordner `.obsidian/` und sollten automatisch greifen. Falls dein Entpacker diesen Ordner verschluckt hat (passiert selten) oder Anhänge/Vorlagen am falschen Ort landen, stell es einmal von Hand ein:
+
+1. **Anhänge-Speicherort** — Einstellungen → Dateien & Links → "Standardspeicherort für neue
+   Anhänge" → `Anhänge`.
+2. **Anhänge aus Graph & Suche raushalten** — Dateien & Links → "Ignorierte Dateien" →
+   `Anhänge/` eintragen.
+3. **Vorlagen** — Core-Plugins → "Vorlagen" aktivieren → Vorlagen-Ordner = `templates`.
+4. **Tägliche Notizen** — Core-Plugins → "Tägliche Notizen" aktivieren → Ort = `Tagebuch`,
+   Datumsformat = `YYYY-MM-DD`, Vorlage = `templates/tagebuch`.
 </script>
 
 <script type="text/template" id="tpl-tagebuch">
@@ -744,6 +741,27 @@ function buildFiles(d){
     const text = fill(tpl("tpl-projekt"), {DATE:todayISO(), TITEL:t});
     files.push({name:"Projekte/"+slug(t)+".md", text});
   });
+
+  // .obsidian config — vorkonfiguriert, damit keine manuellen Einstellungen nötig sind
+  const J = o => JSON.stringify(o, null, 2);
+  files.push({name:".obsidian/app.json", text:J({
+    attachmentFolderPath:"Anhänge",
+    alwaysUpdateLinks:true,
+    userIgnoreFilters:["Anhänge/"],
+    trashOption:"local",
+    promptDelete:false
+  })});
+  files.push({name:".obsidian/core-plugins.json", text:J({
+    "file-explorer":true,"global-search":true,"switcher":true,"graph":true,
+    "backlink":true,"outgoing-link":true,"tag-pane":true,"page-preview":true,
+    "daily-notes":true,"templates":true,"note-composer":true,"command-palette":true,
+    "editor-status":true,"bookmarks":true,"outline":true,"word-count":true,
+    "file-recovery":true,"properties":true
+  })});
+  files.push({name:".obsidian/templates.json", text:J({folder:"templates"})});
+  files.push({name:".obsidian/daily-notes.json", text:J({
+    folder:"Tagebuch", format:"YYYY-MM-DD", template:"templates/tagebuch"
+  })});
 
   // empty dirs
   ["Anhänge/","Archiv/","Aufgaben/","Berichte/","Berichte/sclose/","Ideen/","Tagebuch/"]
