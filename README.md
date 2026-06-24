@@ -2,6 +2,12 @@
 
 Ein Bausatz, um ein persönliches **KI-Betriebssystem auf Basis von Obsidian** nachzubauen: strukturiertes "zweites Gehirn", eine `CLAUDE.md` als Router/Identität für die KI, klare Arbeitsregeln und ein optionaler autonomer Agent.
 
+## Was ist Obsidian?
+
+**Obsidian ist eine kostenlose Notiz-App.** Der Unterschied zu allen anderen: Deine Notizen bleiben als einfache Textdateien auf deinem eigenen Gerät — kein Konto, niemand liest mit, niemand kann den Zugang abschalten. Verschwindet die App, hast du trotzdem alles, denn es sind ja normale Dateien. Du kannst Notizen verknüpfen und in Sekunden durchsuchen — ein digitales Notizbuch, das ganz dir gehört.
+
+Für ein KI-System ist genau das der entscheidende Punkt: Weil alles Klartext ist, kann deine **KI den Vault direkt lesen**. Er ist gleichzeitig dein Gedächtnis und der Wissensspeicher, aus dem die KI arbeitet — ohne dass deine Daten je das Haus verlassen.
+
 Das Kit ist in drei Stufen aufgebaut. **Du nimmst nur, was du brauchst.**
 
 | Stufe | Inhalt | Voraussetzung | Server? |
