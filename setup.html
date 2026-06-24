@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vault-Bausatz — dein zweites Gehirn einrichten</title>
+<style>
+  :root{
+    --paper:#EBEEF1; --surface:#FFFFFF; --ink:#181C22; --ink-soft:#5A646E;
+    --line:#D4DAE0; --line-soft:#E4E8EC;
+    --indigo:#34357A; --indigo-soft:#EBEBF4;
+    --amber:#BC6F26; --amber-deep:#9F5C1B;
+    --ok:#2E7D54;
+    --serif:Georgia,"Iowan Old Style",Palatino,"Palatino Linotype",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --r:10px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--paper); color:var(--ink); font-family:var(--sans);
+    line-height:1.55; -webkit-font-smoothing:antialiased;
+    padding:0 20px 80px;
+  }
+  .wrap{max-width:760px; margin:0 auto}
+
+  /* Header */
+  header{padding:54px 0 28px; border-bottom:1px solid var(--line)}
+  .eyebrow{
+    font-family:var(--mono); font-size:12px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--indigo); margin:0 0 14px;
+  }
+  h1{
+    font-family:var(--serif); font-weight:600; font-size:clamp(30px,5vw,44px);
+    line-height:1.08; letter-spacing:-.01em; margin:0 0 16px;
+  }
+  h1 em{font-style:italic; color:var(--indigo)}
+  .lede{font-size:17px; color:var(--ink-soft); margin:0; max-width:54ch}
+  .lede b{color:var(--ink); font-weight:600}
+  .callout{
+    margin:18px 0 0; font-size:14.5px; color:var(--ink);
+    background:var(--indigo-soft); border-radius:8px; padding:11px 15px;
+    max-width:56ch;
+  }
+  .callout b{color:var(--indigo)}
+
+  /* Sections */
+  .block{padding:34px 0; border-bottom:1px solid var(--line-soft)}
+  .block-head{display:flex; gap:14px; align-items:baseline; margin:0 0 4px}
+  .num{
+    font-family:var(--mono); font-size:13px; color:var(--indigo);
+    border:1px solid var(--line); border-radius:6px; padding:1px 7px;
+    flex:none; background:var(--surface);
+  }
+  .block h2{font-family:var(--serif); font-weight:600; font-size:22px; margin:0; letter-spacing:-.01em}
+  .hint{color:var(--ink-soft); font-size:14.5px; margin:6px 0 18px; padding-left:42px}
+  .optional{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft); font-weight:400}
+  .fields{padding-left:42px}
+  @media(max-width:560px){ .hint,.fields{padding-left:0} }
+
+  label.lbl{display:block; font-size:13px; font-weight:600; margin:0 0 6px; color:var(--ink)}
+  label.lbl .sub{font-weight:400; color:var(--ink-soft)}
+  .row{margin-bottom:18px}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+  @media(max-width:560px){ .grid2{grid-template-columns:1fr} }
+
+  input[type=text], textarea{
+    width:100%; font-family:var(--sans); font-size:15px; color:var(--ink);
+    background:var(--surface); border:1px solid var(--line); border-radius:8px;
+    padding:11px 13px; resize:vertical;
+  }
+  input[type=text]:focus, textarea:focus{outline:2px solid var(--indigo); outline-offset:-1px; border-color:var(--indigo)}
+  textarea{min-height:64px; line-height:1.5}
+  ::placeholder{color:#9AA4AD}
+
+  /* Chips (single + multi select) */
+  .chips{display:flex; flex-wrap:wrap; gap:8px}
+  .chip{
+    font-family:var(--sans); font-size:14px; color:var(--ink);
+    background:var(--surface); border:1px solid var(--line); border-radius:999px;
+    padding:7px 14px; cursor:pointer; user-select:none; transition:background .12s,border-color .12s,color .12s;
+  }
+  .chip:hover{border-color:var(--indigo)}
+  .chip[aria-pressed=true]{background:var(--indigo); border-color:var(--indigo); color:#fff}
+  .chip:focus-visible{outline:2px solid var(--indigo); outline-offset:2px}
+
+  /* Preview tree */
+  .preview{
+    margin-top:18px; background:var(--surface); border:1px solid var(--line);
+    border-radius:var(--r); overflow:hidden;
+  }
+  .preview-bar{
+    display:flex; align-items:center; gap:8px; padding:10px 14px;
+    border-bottom:1px solid var(--line-soft); background:#F7F8FA;
+    font-family:var(--mono); font-size:12px; color:var(--ink-soft); letter-spacing:.04em;
+  }
+  .dot{width:9px; height:9px; border-radius:50%; background:var(--line); flex:none}
+  .dot.live{background:var(--ok)}
+  .tree{margin:0; padding:14px 16px; font-family:var(--mono); font-size:13px; line-height:1.7; color:var(--ink); overflow-x:auto}
+  .tree .dir{color:var(--indigo); font-weight:600}
+  .tree .new{color:var(--amber)}
+  .tree .muted{color:#9AA4AD}
+
+  /* Generate */
+  .actions{padding:34px 0 0}
+  .cta{
+    font-family:var(--sans); font-size:16px; font-weight:600; color:#fff;
+    background:var(--amber); border:none; border-radius:9px; padding:15px 26px;
+    cursor:pointer; transition:background .14s; width:100%;
+  }
+  .cta:hover{background:var(--amber-deep)}
+  .cta:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+  .cta[disabled]{background:#C9B49E; cursor:not-allowed}
+  .note{font-size:13px; color:var(--ink-soft); margin:12px 0 0; text-align:center}
+
+  /* Result */
+  .result{display:none; padding:32px 0 0}
+  .result.show{display:block}
+  .done{
+    background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--ok);
+    border-radius:var(--r); padding:22px 24px;
+  }
+  .done h3{font-family:var(--serif); font-size:21px; margin:0 0 8px}
+  .done p{margin:0 0 16px; color:var(--ink-soft); font-size:15px}
+  .steps{margin:18px 0 0; padding:0; list-style:none; counter-reset:s}
+  .steps li{position:relative; padding:0 0 14px 34px; counter-increment:s; font-size:15px}
+  .steps li::before{
+    content:counter(s); position:absolute; left:0; top:-1px;
+    font-family:var(--mono); font-size:12px; color:var(--indigo);
+    border:1px solid var(--line); border-radius:6px; width:24px; height:24px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .steps code{font-family:var(--mono); font-size:13px; background:var(--indigo-soft); color:var(--indigo); padding:1px 6px; border-radius:4px}
+  .redownload{margin-top:18px; font-size:14px; color:var(--indigo); background:none; border:none; cursor:pointer; padding:0; font-family:var(--sans); text-decoration:underline}
+
+  footer{padding:40px 0 0; color:var(--ink-soft); font-size:13px; text-align:center}
+  footer .priv{display:inline-flex; align-items:center; gap:7px}
+
+  @media(prefers-reduced-motion:no-preference){
+    .block{animation:rise .4s ease both}
+  }
+  @keyframes rise{from{opacity:0; transform:translateY(6px)}to{opacity:1; transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">Vault-Bausatz · Stufe 1</p>
+    <h1>Dein <em>zweites Gehirn</em>,<br>in fünf Antworten fertig.</h1>
+    <p class="lede">Beantworte ein paar Fragen, lade deinen persönlichen Obsidian-Vault als ZIP. <b>Alles läuft hier im Browser</b> — nichts wird hochgeladen, nichts gespeichert, keine KI im Spiel.</p>
+    <p class="callout">↳ <b>Am Computer öffnen</b> (Mac oder PC), nicht am Handy oder Tablet — dort lässt sich die ZIP nicht sauber entpacken und in Obsidian öffnen.</p>
+  </header>
+
+  <!-- 1 PERSON -->
+  <section class="block">
+    <div class="block-head"><span class="num">1</span><h2>Wer bist du?</h2></div>
+    <p class="hint">Kommt in deine Profil-Datei und ins Kurz-Briefing, das die KI zuerst liest.</p>
+    <div class="fields">
+      <div class="grid2">
+        <div class="row">
+          <label class="lbl" for="name">Name <span class="sub">— wie die KI dich anspricht</span></label>
+          <input type="text" id="name" placeholder="z. B. Markus">
+        </div>
+        <div class="row">
+          <label class="lbl" for="ort">Ort <span class="sub">— optional</span></label>
+          <input type="text" id="ort" placeholder="z. B. Graz">
+        </div>
+      </div>
+      <div class="row">
+        <label class="lbl" for="kontext">In ein, zwei Sätzen: was machst du?</label>
+        <textarea id="kontext" placeholder="z. B. Solo-Bastler, baue Smart-Home- und Technik-Lösungen für mehr Selbstständigkeit im Alltag."></textarea>
+      </div>
+      <div class="row">
+        <label class="lbl" for="vault">Name des Vaults <span class="sub">— Titel deines Gehirns</span></label>
+        <input type="text" id="vault" placeholder="Mein zweites Gehirn">
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 ZWECK -->
+  <section class="block">
+    <div class="block-head"><span class="num">2</span><h2>Wofür nutzt du es?</h2></div>
+    <p class="hint">Mehrfachauswahl — tipp an, was passt. Bestimmt, worauf die KI sich einstellt.</p>
+    <div class="fields">
+      <div class="chips" id="zweck" role="group" aria-label="Zweck">
+        <button type="button" class="chip" data-v="Beruf & Arbeit">Beruf & Arbeit</button>
+        <button type="button" class="chip" data-v="Eigene Projekte">Eigene Projekte</button>
+        <button type="button" class="chip" data-v="Studium & Lernen">Studium & Lernen</button>
+        <button type="button" class="chip" data-v="Haushalt & Orga">Haushalt & Orga</button>
+        <button type="button" class="chip" data-v="Pflege & Betreuung">Pflege & Betreuung</button>
+        <button type="button" class="chip" data-v="Kreatives & Schreiben">Kreatives & Schreiben</button>
+        <button type="button" class="chip" data-v="Technik & Basteln">Technik & Basteln</button>
+        <button type="button" class="chip" data-v="Gesundheit">Gesundheit</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 SCHREIBSTIL -->
+  <section class="block">
+    <div class="block-head"><span class="num">3</span><h2>Wie soll die KI mit dir reden?</h2></div>
+    <p class="hint">Wird als eigene Stil-Datei abgelegt, an die sich die KI hält.</p>
+    <div class="fields">
+      <div class="row">
+        <label class="lbl">Anrede</label>
+        <div class="chips" id="anrede" data-single role="group" aria-label="Anrede">
+          <button type="button" class="chip" data-v="du" aria-pressed="true">Du</button>
+          <button type="button" class="chip" data-v="Sie">Sie</button>
+        </div>
+      </div>
+      <div class="row">
+        <label class="lbl">Ton</label>
+        <div class="chips" id="ton" data-single role="group" aria-label="Ton">
+          <button type="button" class="chip" data-v="locker und direkt" aria-pressed="true">Locker</button>
+          <button type="button" class="chip" data-v="förmlich und sachlich">Förmlich</button>
+        </div>
+      </div>
+      <div class="row">
+        <label class="lbl">Antwortlänge</label>
+        <div class="chips" id="laenge" data-single role="group" aria-label="Länge">
+          <button type="button" class="chip" data-v="knapp, auf den Punkt" aria-pressed="true">Knapp</button>
+          <button type="button" class="chip" data-v="ausführlich, mit Begründung">Ausführlich</button>
+        </div>
+      </div>
+      <div class="row">
+        <label class="lbl" for="sprache">Sprache</label>
+        <input type="text" id="sprache" value="Deutsch">
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 THEMEN -->
+  <section class="block">
+    <div class="block-head"><span class="num">4</span><h2>Was beschäftigt dich gerade?</h2></div>
+    <p class="hint">Je Thema legt der Bausatz eine fertige Projekt-Datei an. Leer lassen geht auch.</p>
+    <div class="fields">
+      <div class="row"><input type="text" class="thema" placeholder="Projekt oder Thema 1"></div>
+      <div class="row"><input type="text" class="thema" placeholder="Projekt oder Thema 2"></div>
+      <div class="row"><input type="text" class="thema" placeholder="Projekt oder Thema 3"></div>
+    </div>
+  </section>
+
+  <!-- 5 WERKZEUGE -->
+  <section class="block">
+    <div class="block-head"><span class="num">5</span><h2>Womit arbeitest du? <span class="optional">optional</span></h2></div>
+    <p class="hint">Geräte, Programme, Dienste. Hilft der KI, im richtigen Kontext zu denken.</p>
+    <div class="fields">
+      <div class="row">
+        <textarea id="werkzeuge" placeholder="z. B. iPad & MacBook, Home Assistant, Obsidian, ESP32, 3D-Drucker"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREVIEW + GENERATE -->
+  <div class="actions">
+    <div class="preview" aria-live="polite">
+      <div class="preview-bar"><span class="dot" id="pvdot"></span><span id="pvlabel">Vorschau — füllt sich, während du tippst</span></div>
+      <pre class="tree" id="tree"></pre>
+    </div>
+    <div style="padding-top:22px">
+      <button class="cta" id="gen">Vault erzeugen &amp; herunterladen</button>
+      <p class="note">Erzeugt eine ZIP-Datei. Entpacken, in Obsidian als Vault öffnen.</p>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="result" id="result">
+    <div class="done">
+      <h3>Fertig — dein Vault ist gebaut.</h3>
+      <p id="donesum">Die ZIP wird heruntergeladen.</p>
+      <ol class="steps">
+        <li>ZIP <b>entpacken</b> (Doppelklick).</li>
+        <li>In <b>Obsidian</b>: „Open folder as vault" → den entpackten Ordner wählen.</li>
+        <li>Die Datei <code>00-WILLKOMMEN.md</code> öffnen — dort stehen die letzten Obsidian-Einstellungen.</li>
+        <li>Loslegen: im Chat mit deiner KI arbeiten.</li>
+      </ol>
+      <button class="redownload" id="again">Nochmal herunterladen</button>
+    </div>
+  </div>
+
+  <footer>
+    <span class="priv">▢ Läuft offline · keine Server · deine Daten bleiben auf diesem Gerät</span>
+  </footer>
+
+</div>
+
+<!-- ============ DATEI-VORLAGEN (werden mit deinen Antworten gefüllt) ============ -->
+
+<script type="text/template" id="tpl-claude">
+# Vault Context — {{VAULT_NAME}}
+
+Dieses Vault ist das zweite Gehirn von {{NAME}}.
+
+> **Kompakte Wissensbasis:** [[Wissensdatenbank/WISSENSBASIS]] — bei jeder neuen Session
+> **zuerst** lesen, danach gezielt nachladen.
+
+## Über mich
+
+{{NAME}}, {{ORT}}. {{KONTEXT}}
+
+Ausführliches Profil: [[Wissensdatenbank/Über mich]]
+
+---
+
+## Vault-Struktur
+
+- **Anhänge/**: Bilder, PDFs, Medien. Obsidian speichert hier automatisch.
+- **Archiv/**: Abgeschlossene Projekte, inaktive Notizen.
+- **Aufgaben/**: To-Dos, offene Punkte, Checklisten.
+- **Berichte/**: Zusammenfassungen, Session-Protokolle, sclose-Outputs.
+- **Ideen/**: Lose Gedanken, Konzepte ohne konkretes Projekt. Tag: `#idee`
+- **Projekte/**: Aktive Projekte mit Ziel und Enddatum. Eine .md pro Projekt.
+- **Tagebuch/**: Tägliche Einträge. Format: `YYYY-MM-DD.md`. Tags: `#frage` / `#erledigt` / `#idee`
+- **templates/**: Vorlagen für Notizen, Projekte, Daily Notes.
+- **Wissensdatenbank/**: Referenzwissen, Kontext-Dateien, Dokumentation.
+
+## System-Bausteine (modular)
+
+- **Skills/** — abrufbare Prozesse, eine .md pro Skill. Bei neuer Aufgabe passenden Skill laden; fehlt einer, neu anlegen nach gleichem Schema.
+- Lernschleife: Sektion „Wissen & Erkenntnisse" + sclose.
+
+CLAUDE.md ist **Identität + Router**: Prozessdetails leben in `Skills/`.
+
+---
+
+## Arbeitsregeln
+
+### Allgemein
+- Schreibstil: {{STIL_KURZ}}. Details: [[Wissensdatenbank/Schreibstil]].
+- Code: immer vollständige Dateien/Scripts, keine Snippets.
+- API-Keys: niemals im Chat, niemals im Browser-Code — immer server-seitig (siehe Stufe 2).
+
+### Obsidian
+- **AI-first Notizen** (damit das Gedächtnis gut abrufbar bleibt):
+  - Frontmatter immer: `type:` (projekt/tagebuch/aufgabe/wissen/idee/person/entscheidung), `date:`, `tags:` — bei Projekten und Aufgaben zusätzlich `status:`.
+  - `[[Wikilinks]]` für **jede** genannte Person, jedes Projekt, jede Idee, jede Entscheidung — auch wenn die Zieldatei noch nicht existiert.
+  - Externe Fakten mit Recency-Marker: `Behauptung (Stand YYYY-MM, quelle.de)`.
+- Neue Notiz ohne Platz → `Aufgaben/` oder `Ideen/`.
+- Dateien löschen/überschreiben → erst nachfragen.
+- Aufgabe verwerfen → löschen (Obsidian sichert sie in `.trash`). Erledigte Aufgaben → `Archiv/`.
+
+### Wenn ich sage „merk dir das"
+→ relevante Datei in `Wissensdatenbank/` aktualisieren und die Änderung benennen.
+
+### Wenn ich „zusammenfassung" schreibe (oder `#sclose`)
+→ sclose-Output erstellen:
+
+```
+## sclose — [Projektname]
+**Datum:** YYYY-MM-DD
+
+**Entscheidungen:**
+- [Entscheidung] → [Ein-Satz-Begründung]
+
+**Offene Punkte / Nächste Schritte:**
+- [ ] [Schritt]
+
+**Stand:** [Ein Satz]
+```
+
+Speichern in `Berichte/sclose/YYYY-MM-DD.md` (oder `…-[projektname].md`).
+Kein Diskussionsverlauf, keine KI-Argumente — nur Fakten und Entscheidungen.
+
+---
+
+## Session-Routinen
+
+- **Session-Start:** Prüfe neue `#frage`-Tags in `Tagebuch/`. Zeige offene Punkte aktiver Projekte, wenn relevant.
+- **„Wo war ich?":** Letzte 2–3 Tagebuch-Einträge + aktive Projekt-Dateien → kurzes Briefing, kein Fließtext.
+- **Session-Ende:** sclose wie oben.
+
+---
+
+## Technische Prinzipien
+
+- **One-tap-Prinzip:** Jeder Workflow minimiert manuelle Schritte.
+- **Eine Quelle pro Fakt**, keine Duplikate.
+- **Einfachste funktionierende Lösung gewinnt.**
+
+---
+
+## Wissen & Erkenntnisse
+
+Persistentes Gedächtnis zwischen Sessions. Die KI lernt nicht dauerhaft — relevante
+Erkenntnisse, Entscheidungen und neues Wissen werden hier abgelegt.
+
+**Format pro Eintrag:** `- [YYYY-MM-DD] [Thema]: [Erkenntnis in 1-2 Sätzen]`
+
+**Regeln:**
+- Kein Gesprächsverlauf — nur Fakten, Entscheidungen, Erkenntnisse.
+- Max 2 Sätze pro Eintrag. Neue Einträge unten anhängen.
+- Am Session-Ende fragt die KI: „Was soll ich aus diesem Gespräch festhalten?"
+
+**Einträge:**
+- [YYYY-MM-DD] Beispiel: Hier kommt deine erste Erkenntnis rein.
+
+---
+
+## Handlungsprinzip: Weglassen vor Hinzufügen
+
+> „Vollkommenheit ist nicht erreicht, wenn man nichts mehr hinzufügen, sondern wenn man
+> nichts mehr weglassen kann." — Saint-Exupéry
+
+- Vor jeder Ergänzung prüfen: lässt sich das Problem durch **Weglassen** lösen?
+- Kein Teil, keine Datei, kein Schritt ohne klaren Zweck.
+- Bei Vorschlägen: erst reduzieren, dann optimieren.
+
+## Arbeits-Workflow für neue Projekte/Features
+
+Verbindliche Reihenfolge — kein Schritt überspringen:
+
+1. **Diskutieren** — Optionen, Vor-/Nachteile. Noch nichts bauen.
+2. **Entscheiden** — Entscheidungen festhalten (sclose-Format wenn sinnvoll).
+3. **Mockup** — Low-Effort-Prototyp zum Validieren (statisches HTML, Skizze, Dummy-Daten).
+4. **Bauen** — erst nach Freigabe des Mockups.
+
+---
+
+## Erweiterungen
+
+- **Agent (autonomes Ausführen):** siehe `../stufe-2-agent/`.
+- **Eigene Web-Dienste (VPS):** siehe `../stufe-3-dienste/`.
+</script>
+
+<script type="text/template" id="tpl-uebermich">
+# Über mich
+
+{{NAME}}, {{ORT}}.
+
+{{KONTEXT}}
+
+## Wofür ich das nutze
+{{ZWECK_LISTE}}
+
+## Arbeitsweise
+- (wie gehst du an Probleme heran?)
+
+## Werkzeuge
+{{WERKZEUGE_LISTE}}
+
+## Ziele
+- (was willst du mit dem System erreichen?)
+</script>
+
+<script type="text/template" id="tpl-schreibstil">
+# Schreibstil
+
+So soll die KI mit mir reden — verbindlich für jede Antwort.
+
+- **Anrede:** {{ANREDE}}
+- **Ton:** {{TON}}
+- **Antwortlänge:** {{LAENGE}}
+- **Sprache:** {{SPRACHE}}
+
+## Grundregeln
+- Funktion vor Theorie. Erst die Lösung, dann die Begründung.
+- Keine Füllfloskeln, keine Wiederholung der Frage.
+- Bei Empfehlungen: Optionen mit Vor-/Nachteilen, dann eine klare Empfehlung.
+</script>
+
+<script type="text/template" id="tpl-wissensbasis">
+# WISSENSBASIS — Kompakt-Briefing
+
+Token-spar-Einstieg für die KI. Hält die wichtigsten Fakten kompakt an einer Stelle.
+Bei jeder Session **zuerst** lesen, dann gezielt nachladen.
+
+## 1. Person
+{{NAME}}, {{ORT}}. {{KONTEXT}}
+
+## 2. Wofür dieses Gehirn
+{{ZWECK_LISTE}}
+
+## 3. Aktive Projekte
+{{THEMEN_LISTE}}
+
+## 4. Offene Fragen
+- (aus `#frage`-Tags im Tagebuch)
+
+## 5. Wichtige Entscheidungen
+- (siehe „Wissen & Erkenntnisse" in CLAUDE.md)
+
+## 6. Werkzeuge & Zugänge
+{{WERKZEUGE_LISTE}}
+</script>
+
+<script type="text/template" id="tpl-projekt">
+---
+type: projekt
+date: {{DATE}}
+tags: [projekt]
+status: aktiv
+---
+
+# {{TITEL}}
+
+## Ziel
+(was soll am Ende dastehen, bis wann?)
+
+## Kontext
+(warum, Hintergrund)
+
+## Nächste Schritte
+- [ ] 
+
+## Entscheidungen
+- 
+
+## Status
+(ein Satz: wo stehen wir?)
+</script>
+
+<script type="text/template" id="tpl-willkommen">
+# Willkommen — dein Vault ist eingerichtet
+
+Hallo {{NAME}}. Dieses Vault ist dein „zweites Gehirn". Inhalte und Profil sind schon
+nach deinen Antworten angelegt. Es fehlt nur noch **ein** Schritt: Obsidian scharf stellen.
+
+## Letzter Schritt: Obsidian einrichten
+
+Diese Einstellungen sorgen dafür, dass Anhänge, Vorlagen und Tagesnotizen am richtigen
+Ort landen. Einmal klicken, fertig.
+
+1. **Anhänge-Speicherort** — Einstellungen → Dateien & Links → „Standardspeicherort für neue
+   Anhänge" → `Anhänge`.
+2. **Anhänge aus Graph & Suche raushalten** — Dateien & Links → „Ignorierte Dateien" →
+   `Anhänge/` eintragen.
+3. **Vorlagen** — Einstellungen → Core-Plugins → „Vorlagen" aktivieren → Vorlagen-Ordner =
+   `templates`.
+4. **Tägliche Notizen** — Core-Plugins → „Tägliche Notizen" aktivieren → Ort = `Tagebuch`,
+   Datumsformat = `YYYY-MM-DD`, Vorlage = `templates/tagebuch`.
+5. *(optional)* **Dataview** — Community-Plugin, für Abfragen wie „alle offenen `#aufgabe`".
+
+## So arbeitest du ab jetzt
+
+- Gib deiner KI die Datei `CLAUDE.md` als Kontext (Claude Code lädt sie automatisch).
+- Am Tagesende: „schließ den Tag ab" → Tagesnotiz in `Tagebuch/`.
+- Neue Regel? Einfach im Chat sagen — sie wandert nach `CLAUDE.md`.
+
+Wenn alles steht, kannst du **diese Datei löschen**.
+</script>
+
+<script type="text/template" id="tpl-tagebuch">
+---
+type: tagebuch
+date: {{date}}
+tags: [tagebuch]
+---
+
+# {{date}}
+
+## Heute
+- 
+
+## Fragen
+- #frage 
+
+## Ideen
+- #idee 
+</script>
+
+<script type="text/template" id="tpl-sclose">
+## sclose — {{title}}
+**Datum:** {{date}}
+
+**Entscheidungen:**
+- [Entscheidung] → [Ein-Satz-Begründung]
+
+**Offene Punkte / Nächste Schritte:**
+- [ ] [Schritt]
+
+**Stand:** [Ein Satz]
+</script>
+
+<script type="text/template" id="tpl-skill">
+# Skill: Beispiel
+
+**Ampel:** 🟢 grün
+
+## Zweck
+Was macht dieser Skill, wann wird er gezogen?
+
+## Auslöser
+Welche Formulierung / Situation aktiviert ihn?
+
+## Ablauf
+1. Schritt
+2. Schritt
+3. Ergebnis
+
+## Beispiel
+(konkretes Beispiel des erwarteten Outputs)
+
+---
+> Neuen Skill nach diesem Schema anlegen: eine `.md` pro Skill, immer mit Ampel.
+</script>
+
+<script>
+"use strict";
+
+/* ---------- Mini-ZIP-Writer (store, kein CDN, offline) ---------- */
+const CRC_TABLE = (() => {
+  const t = new Uint32Array(256);
+  for (let n = 0; n < 256; n++) {
+    let c = n;
+    for (let k = 0; k < 8; k++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+    t[n] = c >>> 0;
+  }
+  return t;
+})();
+function crc32(bytes){
+  let c = 0xFFFFFFFF;
+  for (let i = 0; i < bytes.length; i++) c = CRC_TABLE[(c ^ bytes[i]) & 0xFF] ^ (c >>> 8);
+  return (c ^ 0xFFFFFFFF) >>> 0;
+}
+const enc = new TextEncoder();
+function dosTime(d){ return ((d.getHours()<<11)|(d.getMinutes()<<5)|(d.getSeconds()/2))&0xFFFF; }
+function dosDate(d){ return (((d.getFullYear()-1980)<<9)|((d.getMonth()+1)<<5)|d.getDate())&0xFFFF; }
+
+// entries: [{name, text}]  (name with trailing "/" = directory)
+function makeZip(entries){
+  const now = new Date(), t = dosTime(now), dt = dosDate(now);
+  const chunks = [], central = [];
+  let offset = 0;
+  const u16 = v => new Uint8Array([v&0xFF,(v>>8)&0xFF]);
+  const u32 = v => new Uint8Array([v&0xFF,(v>>8)&0xFF,(v>>16)&0xFF,(v>>24)&0xFF]);
+  const push = (arr, b) => { arr.push(b); };
+
+  for (const e of entries){
+    const isDir = e.name.endsWith("/");
+    const nameBytes = enc.encode(e.name);
+    const data = isDir ? new Uint8Array(0) : enc.encode(e.text);
+    const crc = isDir ? 0 : crc32(data);
+    const flag = 0x0800; // UTF-8 filenames (Umlaute!)
+
+    // local header
+    const lh = [];
+    push(lh, u32(0x04034b50)); push(lh, u16(20)); push(lh, u16(flag)); push(lh, u16(0));
+    push(lh, u16(t)); push(lh, u16(dt)); push(lh, u32(crc));
+    push(lh, u32(data.length)); push(lh, u32(data.length));
+    push(lh, u16(nameBytes.length)); push(lh, u16(0)); push(lh, nameBytes);
+    for (const b of lh) chunks.push(b);
+    chunks.push(data);
+
+    // central record
+    const cd = [];
+    push(cd, u32(0x02014b50)); push(cd, u16(20)); push(cd, u16(20)); push(cd, u16(flag)); push(cd, u16(0));
+    push(cd, u16(t)); push(cd, u16(dt)); push(cd, u32(crc));
+    push(cd, u32(data.length)); push(cd, u32(data.length));
+    push(cd, u16(nameBytes.length)); push(cd, u16(0)); push(cd, u16(0));
+    push(cd, u16(0)); push(cd, u16(0)); push(cd, u32(isDir?0x10:0)); push(cd, u32(offset));
+    push(cd, nameBytes);
+    central.push(cd);
+
+    const lhLen = lh.reduce((s,a)=>s+a.length,0);
+    offset += lhLen + data.length;
+  }
+
+  const cdStart = offset;
+  let cdSize = 0;
+  for (const cd of central){ for (const b of cd) chunks.push(b); cdSize += cd.reduce((s,a)=>s+a.length,0); }
+
+  const eocd = [];
+  push(eocd, u32(0x06054b50)); push(eocd, u16(0)); push(eocd, u16(0));
+  push(eocd, u16(central.length)); push(eocd, u16(central.length));
+  push(eocd, u32(cdSize)); push(eocd, u32(cdStart)); push(eocd, u16(0));
+  for (const b of eocd) chunks.push(b);
+
+  return new Blob(chunks, {type:"application/zip"});
+}
+
+/* ---------- Helpers ---------- */
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const tpl = id => document.getElementById(id).textContent.replace(/^\n/, "");
+function fill(text, map){ return text.replace(/\{\{(\w+)\}\}/g, (m,k)=> (k in map) ? map[k] : m); }
+function slug(s){
+  return s.toLowerCase()
+    .replace(/ä/g,"ae").replace(/ö/g,"oe").replace(/ü/g,"ue").replace(/ß/g,"ss")
+    .replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,50) || "thema";
+}
+function todayISO(){ const d=new Date(); return d.toISOString().slice(0,10); }
+
+/* ---------- Chip groups ---------- */
+$$(".chips").forEach(group => {
+  const single = group.hasAttribute("data-single");
+  group.addEventListener("click", e => {
+    const chip = e.target.closest(".chip"); if (!chip) return;
+    if (single){
+      group.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c===chip ? "true":"false"));
+    } else {
+      chip.setAttribute("aria-pressed", chip.getAttribute("aria-pressed")==="true" ? "false":"true");
+    }
+    renderTree();
+  });
+});
+function chipVal(id){ const el = $("#"+id+" .chip[aria-pressed=true]"); return el ? el.dataset.v : ""; }
+function chipMulti(id){ return $$("#"+id+" .chip[aria-pressed=true]").map(c => c.dataset.v); }
+
+/* ---------- Collect answers ---------- */
+function collect(){
+  const name = $("#name").value.trim() || "Du";
+  const ort = $("#ort").value.trim();
+  const kontext = $("#kontext").value.trim();
+  const vault = $("#vault").value.trim() || (name!=="Du" ? (name + "s Gehirn") : "Mein zweites Gehirn");
+  const zweck = chipMulti("zweck");
+  const anrede = chipVal("anrede"), ton = chipVal("ton"), laenge = chipVal("laenge");
+  const sprache = $("#sprache").value.trim() || "Deutsch";
+  const themen = $$(".thema").map(i => i.value.trim()).filter(Boolean);
+  const werkzeuge = $("#werkzeuge").value.trim();
+  return {name, ort, kontext, vault, zweck, anrede, ton, laenge, sprache, themen, werkzeuge};
+}
+
+/* ---------- Build files ---------- */
+function buildFiles(d){
+  const ortStr = d.ort ? d.ort : "—";
+  const zweckListe = d.zweck.length ? d.zweck.map(z=>"- "+z).join("\n") : "- (offen — später ergänzen)";
+  const werkListe = d.werkzeuge
+    ? d.werkzeuge.split(/[\n,;]+/).map(s=>s.trim()).filter(Boolean).map(w=>"- "+w).join("\n")
+    : "- (ergänzen, sobald vorhanden)";
+  const themenListe = d.themen.length ? d.themen.map(t=>"- [["+t+"]]").join("\n") : "- (noch keine — in `Projekte/` anlegen)";
+  const stilKurz = [d.anrede==="Sie"?"Sie":"du", d.ton, d.laenge].filter(Boolean).join(", ");
+
+  const base = {
+    VAULT_NAME:d.vault, NAME:d.name, ORT:ortStr, KONTEXT:d.kontext || "(kurz beschreiben, was du machst)",
+    ZWECK_LISTE:zweckListe, WERKZEUGE_LISTE:werkListe, THEMEN_LISTE:themenListe,
+    STIL_KURZ:stilKurz, ANREDE:d.anrede==="Sie"?"Sie (förmlich)":"du (locker)",
+    TON:d.ton, LAENGE:d.laenge, SPRACHE:d.sprache
+  };
+
+  const files = [];
+  files.push({name:"CLAUDE.md", text:fill(tpl("tpl-claude"), base)});
+  files.push({name:"00-WILLKOMMEN.md", text:fill(tpl("tpl-willkommen"), base)});
+  files.push({name:"Wissensdatenbank/Über mich.md", text:fill(tpl("tpl-uebermich"), base)});
+  files.push({name:"Wissensdatenbank/Schreibstil.md", text:fill(tpl("tpl-schreibstil"), base)});
+  files.push({name:"Wissensdatenbank/WISSENSBASIS.md", text:fill(tpl("tpl-wissensbasis"), base)});
+  files.push({name:"templates/projekt.md", text:tpl("tpl-projekt").replace("{{DATE}}","{{date}}").replace("{{TITEL}}","{{title}}")});
+  files.push({name:"templates/tagebuch.md", text:tpl("tpl-tagebuch")});
+  files.push({name:"templates/sclose.md", text:tpl("tpl-sclose")});
+  files.push({name:"Skills/_beispiel-skill.md", text:tpl("tpl-skill")});
+
+  // project files per theme
+  d.themen.forEach(t => {
+    const text = fill(tpl("tpl-projekt"), {DATE:todayISO(), TITEL:t});
+    files.push({name:"Projekte/"+slug(t)+".md", text});
+  });
+
+  // empty dirs
+  ["Anhänge/","Archiv/","Aufgaben/","Berichte/","Berichte/sclose/","Ideen/","Tagebuch/"]
+    .forEach(dir => files.push({name:dir, text:""}));
+
+  return files;
+}
+
+/* ---------- Live tree preview ---------- */
+function renderTree(){
+  const d = collect();
+  const themen = d.themen.length ? d.themen : null;
+  const proj = themen ? themen.map(t => `  <span class="muted">├</span> <span class="new">${slug(t)}.md</span>`).join("\n")
+                      : `  <span class="muted">└ (deine Projekte erscheinen hier)</span>`;
+  const dirs = ["Anhänge","Archiv","Aufgaben","Berichte","Ideen","Tagebuch"]
+    .map(x=>`<span class="dir">${x}/</span>`).join("\n");
+  const tree =
+`<span class="dir">${(d.vault||"Mein zweites Gehirn")}/</span>
+ CLAUDE.md
+ 00-WILLKOMMEN.md
+ <span class="dir">Wissensdatenbank/</span>
+  Über mich.md  ·  Schreibstil.md  ·  WISSENSBASIS.md
+ <span class="dir">Projekte/</span>
+${proj}
+ <span class="dir">templates/</span>  ·  <span class="dir">Skills/</span>
+ ${dirs.replace(/\n/g,"\n ")}`;
+  $("#tree").innerHTML = tree;
+  const live = !!(d.name && d.name!=="Du");
+  $("#pvdot").classList.toggle("live", live);
+  $("#pvlabel").textContent = live ? `${d.vault} — bereit zum Erzeugen` : "Vorschau — füllt sich, während du tippst";
+}
+
+/* ---------- Generate + download ---------- */
+let lastBlob=null, lastName="vault.zip";
+function download(blob, name){
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = name; document.body.appendChild(a); a.click();
+  setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); }, 1500);
+}
+function generate(){
+  const d = collect();
+  const files = buildFiles(d);
+  // prefix everything with vault folder so it unzips into one clean folder
+  const root = slug(d.vault) || "mein-zweites-gehirn";
+  const entries = files.map(f => ({name: root + "/" + f.name, text: f.text}));
+  lastBlob = makeZip(entries);
+  lastName = root + ".zip";
+  download(lastBlob, lastName);
+  const projCount = d.themen.length;
+  $("#donesum").textContent = `${entries.length} Einträge gepackt — inkl. ${projCount} Projekt-Datei${projCount===1?"":"en"}. Download „${lastName}" läuft.`;
+  $("#result").classList.add("show");
+  $("#result").scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+$("#gen").addEventListener("click", generate);
+$("#again").addEventListener("click", ()=>{ if(lastBlob) download(lastBlob, lastName); });
+$$("input, textarea").forEach(el => el.addEventListener("input", renderTree));
+renderTree();
+</script>
+</body>
+</html>
