@@ -24,20 +24,11 @@ git clone https://github.com/madmarc2000/ki-os-kit.git
 
 **Ohne git** (kein Terminal nötig): oben auf den grünen **Code**-Knopf → **Download ZIP** → entpacken.
 
-Danach den Ordner `stufe-1-vault/` in Obsidian als Vault öffnen (siehe Quickstart).
+Danach `stufe-1-vault/` in Obsidian als Vault öffnen — weiter geht's unten.
 
-## Quickstart (Stufe 1, ~10 Minuten)
+## Loslegen
 
-1. Ordner `stufe-1-vault/` in Obsidian als Vault öffnen.
-2. `00-START-HIER.md` öffnen — sie sagt dir in einem Satz, was zu tun ist.
-3. **Einrichten:** Gib deiner KI die Datei `_setup/INIT.md` und sag „führe mich durch das Setup". Sie fragt die Grundlagen ab und richtet Struktur, Kontext-Dateien und `CLAUDE.md` selbst ein. Danach einmalig in Obsidian einstellen: `_setup/OBSIDIAN-SETUP.md` (Anhänge, Vorlagen, Tagesnotizen — dort steht auch, wofür jeder Ordner da ist).
-4. Loslegen: schau dir die `BEISPIEL-`Notizen in den Ordnern an, dann lösch sie und leg eigene an.
-
-<details>
-<summary>Einrichten ohne KI-Zugang (manuell)</summary>
-
-`_setup/ANLEITUNG.md` öffnen und die Platzhalter (`{{NAME}}`, `{{VAULT_NAME}}` …) von Hand ersetzen.
-</details>
+Sobald `stufe-1-vault/` in Obsidian offen ist, führt dich die Datei **`00-START-HIER.md`** Schritt für Schritt durch die Einrichtung: Interview, Obsidian-Einstellungen, erste Notizen. Mehr musst du nicht wissen, um anzufangen.
 
 Stufe 2 und 3 sind eigenständige Ordner mit eigener Anleitung — erst dazunehmen, wenn du sie willst.
 
