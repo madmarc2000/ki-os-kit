@@ -26,6 +26,16 @@ git clone https://github.com/madmarc2000/ki-os-kit.git
 
 Danach `stufe-1-vault/` in Obsidian als Vault öffnen — weiter geht's unten.
 
+## Welche KI brauchst du?
+
+Entscheidend ist, ob deine KI **Dateien schreiben** kann:
+
+- **KI-Tool mit Dateizugriff** (Claude Code, Cowork, Gemini CLI, Codex CLI): führt das Interview *und* legt die Dateien selbst an. Vollautomatisch.
+- **Reiner Web-Chat** (Gemini, ChatGPT, Claude im Browser): kann **keine** Dateien schreiben. Er führt dich durchs Interview und gibt dir die fertigen Inhalte aus — **kopieren musst du selbst**. Behauptet ein Web-Chat, er habe Dateien angelegt, stimmt das nicht: prüf im Dateiexplorer nach.
+- **Kein KI-Zugang**: der manuelle Weg (`_setup/ANLEITUNG.md`).
+
+Der Wissens-Layer selbst ist **KI-neutral** — Struktur, Regeln und Templates sind reines Markdown, das jede KI lesen kann. `CLAUDE.md` ist nur ein Beispiel-Dateiname (Claude Code lädt ihn automatisch); bei anderen Agenten heißt die Router-Datei `AGENTS.md` (Codex/OpenCode) oder `GEMINI.md` (Gemini CLI). Inhaltlich gleich, nur der Name ändert sich.
+
 ## Loslegen
 
 Sobald `stufe-1-vault/` in Obsidian offen ist, führt dich die Datei **`00-START-HIER.md`** Schritt für Schritt durch die Einrichtung: Interview, Obsidian-Einstellungen, erste Notizen. Mehr musst du nicht wissen, um anzufangen.
@@ -37,20 +47,6 @@ Stufe 2 und 3 sind eigenständige Ordner mit eigener Anleitung — erst dazunehm
 > „Vollkommenheit ist erreicht, wenn man nichts mehr weglassen kann." — Saint-Exupéry
 
 Weglassen vor Hinzufügen. Die einfachste funktionierende Lösung gewinnt.
-
-## Welche KI?
-
-Der Wissens-Layer ist **KI-neutral** — Vault-Struktur, Regeln, Templates und `_setup/INIT.md` sind
-reine Markdown-Dateien. Jede KI, die Text liest (Claude, ChatGPT, Gemini, lokale Modelle),
-kann damit arbeiten: Inhalt in den Chat kopieren und „arbeite nach diesen Regeln" sagen.
-
-`CLAUDE.md` ist nur ein **Beispiel-Dateiname** — die Konvention, die Claude Code automatisch
-lädt. Bei anderen Agenten-Tools heißt die Router-Datei anders (`AGENTS.md` für Codex/OpenCode,
-`GEMINI.md` für Gemini CLI). Inhaltlich bleibt sie gleich; nur den Namen pro Tool anpassen.
-
-> Damit die KI **autonom** im Vault liest und schreibt (Daily Notes, Notizpflege), braucht sie
-> Dateizugriff — also ein Agenten-Tool (Claude Code, Cowork oder das CLI des jeweiligen
-> Anbieters), nicht nur einen reinen Web-Chat.
 
 ## Lizenz
 
