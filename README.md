@@ -1,8 +1,6 @@
 # KI-OS Kit
 
-Ein Bausatz, um ein persönliches **KI-Betriebssystem auf Basis von Obsidian** nachzubauen:
-strukturiertes „zweites Gehirn", eine `CLAUDE.md` als Router/Identität für die KI, klare
-Arbeitsregeln und ein optionaler autonomer Agent.
+Ein Bausatz, um ein persönliches **KI-Betriebssystem auf Basis von Obsidian** nachzubauen: strukturiertes "zweites Gehirn", eine `CLAUDE.md` als Router/Identität für die KI, klare Arbeitsregeln und ein optionaler autonomer Agent.
 
 Das Kit ist in drei Stufen aufgebaut. **Du nimmst nur, was du brauchst.**
 
@@ -14,7 +12,17 @@ Das Kit ist in drei Stufen aufgebaut. **Du nimmst nur, was du brauchst.**
 
 > Server brauchst du **erst ab Stufe 3** — und dann ist es *dein* Server, nicht der des Autors.
 
-## Herunterladen
+## Sofort starten — ohne Download, ohne KI
+
+**→ [Vault jetzt im Browser bauen](https://madmarc2000.github.io/ki-os-kit/)**
+
+Klick den Link, beantworte fünf kurze Fragen, lade deinen fertigen Vault als ZIP, entpack ihn (egal wohin) und öffne ihn in Obsidian. **Fertig.** Ordner, Regeln, Profil *und* die Obsidian-Einstellungen sind schon eingerichtet — kein Terminal, keine KI, kein Vorwissen.
+
+Die Seite lädt einmal und läuft danach komplett in deinem Browser. Deine Eingaben werden **nicht hochgeladen** — wichtig, wenn du sensible Dinge notierst. Am Computer öffnen (Mac oder PC), nicht am Handy.
+
+## Das ganze Kit holen
+
+Brauchst du nur, wenn du **Stufe 2 oder 3** willst oder den Bausatz **offline** nutzen möchtest (die `setup.html` liegt auch lokal im Kit und läuft dann ganz ohne Internet).
 
 **Mit git** (Terminal):
 
@@ -24,17 +32,7 @@ git clone https://github.com/madmarc2000/ki-os-kit.git
 
 **Ohne git** (kein Terminal nötig): oben auf den grünen **Code**-Knopf → **Download ZIP** → entpacken.
 
-## Einrichten
-
-Zwei Wege — nimm den, der zu dir passt.
-
-### Am einfachsten: der Bausatz (ohne KI, ohne Technik)
-
-Öffne **`setup.html`** aus diesem Kit **am Computer** im Browser (Doppelklick genügt, kein Internet nötig). Beantworte fünf kurze Fragen, lade deinen fertig eingerichteten Vault als ZIP, entpack ihn und öffne ihn in Obsidian. Keine KI, kein Terminal, kein Vorwissen — und alles läuft lokal auf deinem Gerät, nichts wird hochgeladen.
-
-**Das ist der empfohlene Weg, wenn du dich nicht auskennst oder einfach schnell starten willst.** Den Rest der Einrichtung (ein paar Obsidian-Klicks) erklärt dir die Datei `00-WILLKOMMEN.md`, die im fertigen Vault liegt.
-
-### Mit einer KI
+## Mit einer KI (Alternative zum Bausatz)
 
 Wenn du ohnehin ein KI-Tool nutzt: Öffne `stufe-1-vault/` in Obsidian, gib der KI die Datei `_setup/INIT.md` und sag "führe mich durch das Setup". `00-START-HIER.md` erklärt jeden Schritt. Was deine KI dafür können muss, steht im nächsten Abschnitt.
 
@@ -56,7 +54,7 @@ Eigenständige Ordner mit eigener Anleitung — erst dazunehmen, wenn du sie wil
 
 ## Philosophie
 
-> „Vollkommenheit ist erreicht, wenn man nichts mehr weglassen kann." — Saint-Exupéry
+> "Vollkommenheit ist erreicht, wenn man nichts mehr weglassen kann." — Saint-Exupéry
 
 Weglassen vor Hinzufügen. Die einfachste funktionierende Lösung gewinnt.
 
