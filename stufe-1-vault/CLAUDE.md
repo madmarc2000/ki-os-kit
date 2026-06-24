@@ -29,10 +29,9 @@ Ausführliches Profil: [[Wissensdatenbank/Über mich]]
 ## System-Bausteine (modular)
 
 - **Skills/** — abrufbare Prozesse, eine .md pro Skill. Bei neuer Aufgabe passenden Skill laden; fehlt einer, neu anlegen nach gleichem Schema.
-- **GOVERNANCE.md** — Ampelsystem (grün/gelb/rot): was die KI autonom darf, was nur mit Review, was nie.
 - Lernschleife: Sektion „Wissen & Erkenntnisse" + sclose.
 
-CLAUDE.md ist **Identität + Router**: Prozessdetails leben in `Skills/`, Regeln in `GOVERNANCE.md`.
+CLAUDE.md ist **Identität + Router**: Prozessdetails leben in `Skills/`.
 
 ---
 

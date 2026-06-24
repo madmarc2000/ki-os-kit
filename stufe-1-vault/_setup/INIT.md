@@ -30,7 +30,6 @@ Erzeuge oder aktualisiere aus den Antworten:
 - `Wissensdatenbank/Schreibstil.md` — aus Block 3.
 - `Wissensdatenbank/WISSENSBASIS.md` — Kurz-Briefing mit Person, Zweck, aktuellen Themen (Block 1, 2, 4).
 - Pro Thema aus Block 4 eine Datei in `Projekte/`.
-- `GOVERNANCE.md` — Ampel an Block 6 anpassen.
 - **`CLAUDE.md`** — die finale Router-Datei: nimm das vorhandene `CLAUDE.md`, ersetze **alle** `{{Platzhalter}}` durch die echten Werte und trag den Verweis auf `Schreibstil.md` ein. Es darf danach kein `{{…}}` mehr übrig sein.
 
 ## Abschluss
