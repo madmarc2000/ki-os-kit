@@ -17,10 +17,15 @@ Das Kit ist in drei Stufen aufgebaut. **Du nimmst nur, was du brauchst.**
 ## Quickstart (Stufe 1, ~10 Minuten)
 
 1. Ordner `stufe-1-vault/` in Obsidian als Vault öffnen.
-2. Einrichten — zwei Wege:
-   - **Leicht (empfohlen):** `INIT.md` als Kontext an deine KI geben und „führe mich durch das Setup" sagen. Sie fragt die Grundlagen im Interview ab und füllt Struktur, Kontext-Dateien und `CLAUDE.md` selbst.
-   - **Manuell:** `ANLEITUNG.md` öffnen und die Platzhalter (`{{NAME}}`, `{{VAULT_NAME}}` …) von Hand ersetzen — für Nutzung ohne KI-Zugang.
-3. Loslegen: erste Notiz in `Tagebuch/`, erstes Projekt in `Projekte/`.
+2. `00-START-HIER.md` öffnen — sie sagt dir in einem Satz, was zu tun ist.
+3. **Einrichten:** Gib deiner KI die Datei `INIT.md` und sag „führe mich durch das Setup". Sie fragt die Grundlagen ab und richtet Struktur, Kontext-Dateien und `CLAUDE.md` selbst ein.
+4. Loslegen: schau dir die `BEISPIEL-`Notizen in den Ordnern an, dann lösch sie und leg eigene an.
+
+<details>
+<summary>Einrichten ohne KI-Zugang (manuell)</summary>
+
+`ANLEITUNG.md` öffnen und die Platzhalter (`{{NAME}}`, `{{VAULT_NAME}}` …) von Hand ersetzen.
+</details>
 
 Stufe 2 und 3 sind eigenständige Ordner mit eigener Anleitung — erst dazunehmen, wenn du sie willst.
 
