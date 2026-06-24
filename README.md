@@ -20,6 +20,17 @@ Klick den Link, beantworte fünf kurze Fragen, lade deinen fertigen Vault als ZI
 
 Die Seite lädt einmal und läuft danach komplett in deinem Browser. Deine Eingaben werden **nicht hochgeladen** — wichtig, wenn du sensible Dinge notierst. Am Computer öffnen (Mac oder PC), nicht am Handy.
 
+## Auf iPhone oder iPad öffnen
+
+Geht — ist nur einen Schritt fummeliger als am Computer, weil Obsidian auf iOS einen Vault nur an *einem* bestimmten Ort findet. Einmal verstanden, dauert es zwei Minuten. Du brauchst die **Obsidian-App** (gratis im App Store).
+
+1. **Nur beim allerersten Mal:** Obsidian öffnen → "Neuen Vault erstellen" (engl. *Create new vault*) → irgendein Name → **"In iCloud sichern"** (engl. *Store in iCloud*) einschalten → erstellen. Das legt den iCloud-Ordner an, den Obsidian kennt. Diesen Probe-Vault kannst du danach ignorieren oder löschen.
+2. **ZIP entpacken:** Dateien-App öffnen → dein heruntergeladenes ZIP lange gedrückt halten → **"Entpacken"**. Es entsteht ein Ordner mit deinem Vault-Namen.
+3. **Ordner an den richtigen Ort schieben:** Den ganzen Ordner lange drücken → **"Bewegen"** → iCloud Drive → Ordner **Obsidian** → dort ablegen. Wichtig: den **kompletten Ordner** verschieben, nicht hineingehen und einzelne Dateien herausziehen — sonst bleiben die (unsichtbaren) Einstellungen zurück.
+4. **Öffnen:** Obsidian → unten auf den Vault-Namen tippen (Vault-Umschalter) → dein Vault steht in der Liste → antippen. Fertig.
+
+Taucht der Vault nicht auf, liegt er fast immer noch außerhalb des iCloud-Ordners "Obsidian" — das ist die häufigste Stolperfalle.
+
 ## Das ganze Kit holen
 
 Brauchst du nur, wenn du **Stufe 2 oder 3** willst oder den Bausatz **offline** nutzen möchtest (die `setup.html` liegt auch lokal im Kit und läuft dann ganz ohne Internet).
