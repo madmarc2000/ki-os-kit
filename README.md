@@ -14,6 +14,18 @@ Das Kit ist in drei Stufen aufgebaut. **Du nimmst nur, was du brauchst.**
 
 > Server brauchst du **erst ab Stufe 3** — und dann ist es *dein* Server, nicht der des Autors.
 
+## Herunterladen
+
+**Mit git** (Terminal):
+
+```
+git clone https://github.com/madmarc2000/ki-os-kit.git
+```
+
+**Ohne git** (kein Terminal nötig): oben auf den grünen **Code**-Knopf → **Download ZIP** → entpacken.
+
+Danach den Ordner `stufe-1-vault/` in Obsidian als Vault öffnen (siehe Quickstart).
+
 ## Quickstart (Stufe 1, ~10 Minuten)
 
 1. Ordner `stufe-1-vault/` in Obsidian als Vault öffnen.
